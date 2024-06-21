@@ -1,0 +1,30 @@
+# depslib dependency file v1.0
+1717510352 source:c:\users\franc\onedrive\escritorio\portal de turnos\main.cpp
+	<iostream>
+	<cstring>
+	<ctime>
+	"cargarCadena.h"
+	"clsFecha.h"
+	"clsPacientes.h"
+	"clsProfesional.h"
+	"clsTurnos.h"
+	"clsLogin.h"
+	"clsArchivoPacientes.h"
+	"clsArchivoProfesional.h"
+
+1717093180 c:\users\franc\onedrive\escritorio\portal de turnos\cargarcadena.h
+
+1717168815 c:\users\franc\onedrive\escritorio\portal de turnos\clsfecha.h
+
+1717163659 c:\users\franc\onedrive\escritorio\portal de turnos\clspacientes.h
+
+1717102068 c:\users\franc\onedrive\escritorio\portal de turnos\clsprofesional.h
+
+1717163736 c:\users\franc\onedrive\escritorio\portal de turnos\clsarchivopacientes.h
+
+1717163745 c:\users\franc\onedrive\escritorio\portal de turnos\clsarchivoprofesional.h
+
+1717339015 c:\users\franc\onedrive\escritorio\portal de turnos\clsturnos.h
+
+1717510315 c:\users\franc\onedrive\escritorio\portal de turnos\clslogin.h
+
