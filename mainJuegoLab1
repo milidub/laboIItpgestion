@@ -1,3 +1,12 @@
+#include <iostream> /// funciones necesarias para realizar operaciones de entrada y salida en la consola.
+#include "rlutil.h" /// biblioteca. Permite controlar el color del texto, la posición del cursor, etc.
+#include <cstdlib>  ///Generador de numeros aleatorio.
+#include <ctime>  ///Contiene funciones para manipular la fecha y la hora.
+#include <string> ///Contiene funciones para manipular cadenas.
+using namespace std; /// simplifica el uso de los identificadores
+
+#include "Prototipo.h"  ///la extensión .h significa header (encabezado), casi siempre se colocan al inicio de los programas.
+#include "funciones1.h"
 #include "funciones2.h"
 #include "Interfaz.h"
 #include "funcUnjugador.h"
