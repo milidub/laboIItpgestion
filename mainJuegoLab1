@@ -1,0 +1,91 @@
+#include "funciones2.h"
+#include "Interfaz.h"
+#include "funcUnjugador.h"
+#include "funcDosJugadores.h"
+
+
+int main()
+{
+    int y=0;
+    ///MENU PRINCIPAL<--iniciar juego
+    menuPrincipal();
+
+    while(true)
+    {
+        ///SELECCION DE JUGADORES
+        rlutil::hidecursor(); ///Para ocultar el cursor
+
+        rlutil::locate(1, 5);///posicionar el cursor en una ubicación específica. (fila, columna)
+        linea();
+
+        rlutil::locate(40,10);
+        cout<<"--SELECCIONE EL NUMERO DE JUGADORES--"<<endl;
+
+        showItem("1 JUGADOR", 51, 13, y==0);
+        showItem("2 JUGADORES", 51, 14, y==1);
+        showItem("MAXIMO PUNTAJE TOTAL RONDA:", 51, 15, y==2);
+        showItem ("SALIR", 51,16, y==3) ;
+
+        rlutil::locate(1,20);
+        linea();
+
+        rlutil::locate(48,13+y);
+        cout<<(char)175<<endl; /// 175 es el codigo ascci de ese caracter. (char) para que lo interprete como un caracter.
+
+
+        switch(rlutil::getkey()) ///getkey devuelve un entero que representa la letra que estas presionando en el teclado.
+        {
+        case 14:
+            rlutil::locate(48,13+y);
+            cout<<" "<<endl;
+            y--;
+            if(y<0) ///Le das un limite
+            {
+                y=0;
+            }
+            break;
+        case 15:
+            rlutil::locate(48,13+y);
+            cout<<" "<<endl; /// es para borrar el cursor anterior. dibuja un espacio en donde deberia estar el cursor.
+            y++;
+            if(y>2)
+            {
+                y=2;
+            }
+            break;
+        case 1:
+            rlutil::cls();
+            ///LO QUE VA ADENTRO DE CADA OPCION: 1 JUGADOR, 2 JUGADORES, SALIR.
+
+            switch(y)
+            {
+            case 0:
+
+                rlutil::cls();
+
+                unJugador();
+
+
+                break;
+            case 1:
+                rlutil::cls();
+
+                dosJugadores();
+
+                break;
+            case 2:
+                cout<<endl<<endl;
+                return 0;
+                break;
+            default:
+                break;
+            }
+            rlutil::anykey(); ///Espera a que ingreses cualquier tecla.
+            rlutil::cls(); ///
+            break;
+        default:
+            break;
+        }
+    }
+    return 0;
+}
