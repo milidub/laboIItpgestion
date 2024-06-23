@@ -22,6 +22,7 @@ public:
     void MostrarHora(){
         cout<<hora<<" : "<<minuto<<endl;
     }
+Fecha getFechaActual();
 };
 
 class Fecha{
@@ -84,6 +85,11 @@ public:
     void MostrarHoraYMinuto(){
         cout<<hora<<" : "<<minuto<<endl;
     }
+    void setDia(int d); // <--- Agregué esta línea
+    void setMes(int m); // <--- Agregué esta línea
+    void setAnio(int a); // <--- Agregué esta línea
+    void setHora(int h); // <--- Agregué esta línea
+    void setMinuto(int m);
 };
 
 #endif // CLSFECHA_H_INCLUDED
