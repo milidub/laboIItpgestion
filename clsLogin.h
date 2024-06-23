@@ -1,3 +1,6 @@
+#ifndef CLSLOGIN_H_INCLUDED
+#define CLSLOGIN_H_INCLUDED
+
 class Login{
     private:
         char usuario[40];
