@@ -155,12 +155,14 @@ void copiaSeguridad(){
     copiaSeguridadPacientes();
     copiaSeguridadProfesional();
     copiaSeguridadTurnos();
+    cout<<"SE HA GAURDADO A LA COPIA DE SEGURIDAD"<<endl:
 }
 
 void recibrCopiaSeguridad(){
     recibirCopiaSeguridadPacientes();
     recibirCopiaSeguridadProfesional();
     recibirCopiaSeguridadTurnos();
+    cout<<"SE HA RECIBIDO LA COPIA DE SEGURIDA CON EXITO"<<endl:
 }
 
 void registrarse(){
