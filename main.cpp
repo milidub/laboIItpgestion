@@ -12,6 +12,7 @@ using namespace std;
 #include "clsLogin.h"
 #include "clsArchivoPacientes.h"
 #include "clsArchivoProfesional.h"
+#include "Configuracion.h"
 
 ///FUNCIONES
 
@@ -323,7 +324,7 @@ int main()
             break;
         case 3: menuTurnos();
             break;
-        case 4:
+        case 4: menuConfiguracion();
             break;
         case 0:
             return 0;
