@@ -4,6 +4,7 @@
 
 using namespace std;
 
+#include "rlutil.h"
 #include "cargarCadena.h"
 #include "clsFecha.h"
 #include "clsPacientes.h"
