@@ -196,42 +196,61 @@ void menuProfesional(){
 ///TURNOS
 
 void registrarTurno(){
-    Paciente paciente;
-    Profesional profesional;
-    ArchivoPacientes arcPac;
-    ArchivoProfesional arcPro;
+    Turno obj;
+    ArchivoTurno arc;
 
-    Turnos turno;
+    Paciente paciente;
+    ArchivoPaciente arcPac;
+    Profesional profesional;
+    ArchivoProfesional arcProf;
 
     int dni, matricula;
+    char observacion[400];
+    Fecha f;
+    int hora, minuto;
 
-    cout<<"INGRESE EL DNI DEL PACIENTE: ";
+    cout<<"INGRESE DNI: ";
     cin>>dni;
-    cout<<"INGRESE LA MATRICULA DEL PROFESIONAL: ";
-    cin>>matricula;
 
-    int cant = arcPac.contarRegistros();
-
+    int cant=arcPac.contarRegistros();
     for(int i=0;i<cant;i++){
         paciente = arcPac.leerRegistro(i);
-        if(paciente.getDni() == dni){
-            turno.setDniPaciente(paciente.getDni());
+        if(paciente.getDni()==dni){
+            obj.setDni(dni);
             break;
+        }else{
+            cout<<"NO SE ENCONTRO EL DNI DEL PACIENTE"<<endl;
+            return;
         }
-    }
+    
+    cout<<"INGRESE MATRICULA DEL PROFESIONAL: ";
+    cin>>matricula;
 
-    cant = arcPro.contarRegistros();
-
+    int cant=arcPro.contarRegistros();
     for(int i=0;i<cant;i++){
         profesional = arcPro.leerRegistro(i);
         if(profesional.getMatricula()==matricula){
-            turno.setMatriculaProfesional(profesional.getMatricula());
+            obj.setMatricula(matricula)
             break;
+        }else{
+            cout<<"NO SE ENCONTRO LA MATRICULA DEL PROFESIONAL"<<endl;
+            return;
         }
-    }
+    cout<<"OBSERVACION: ";
+    cargarCadena(observacion, 400);
+    obj.setObservaciones(observacion);
+    cout<<"FECHA: "<<endl;
+    f.Cargar();
+    obj.setFecha(f);
+    cout<<"HORA: ";
+    cin>>hora;
+    obj.setHora(hora);
+    cout<<"MINUTO: ";
+    cin>>minuto;
+    obj.setMinuto(minuto);
+    obj.setEstado(true);
 
-    cout<<"INGRESE LA FECHA Y HORA: "<<endl;
-    turno.CargarFecha();
+    arc.grabarRegistro(obj);
 }
 
 void menuTurnos(){
