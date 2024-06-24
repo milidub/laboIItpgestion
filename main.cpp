@@ -266,7 +266,7 @@ void menuTurnos(){
         cin>>num;
         system("cls");
         switch(num){
-        case 1:
+        case 1: registrarTurno();
             break;
         case 2:
             break;
