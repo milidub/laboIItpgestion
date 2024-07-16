@@ -69,6 +69,7 @@ class Fecha{
         void Mostrar(){
             cout<<dia<<"/"<<mes<<"/"<<anio<<endl;
         }
+        ///ESTA FUNCION ES UTILIZADA EN LA FUNCION QUE MODIFICAN LAS VARIABLES DE LAS CLASES PACIENTE Y PROFEIONAL
         void CargarConInterfaz(){
             FechaActual fa;
             while(true){
