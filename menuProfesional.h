@@ -5,6 +5,7 @@ void agregarProfesional();
 void darBajaProfesional();
 void listarProfesional();
 void buscarProfesional();
+void modificarProfesional();
 
 Profesional cargarMemoriaDinamicaProfesional(Profesional *obj, int tam){
     ArchivoProfesional arc;
@@ -23,7 +24,7 @@ void menuProfesional(){
         rlutil::locate(53, 7);
         cout<<"MENU PROFESIONALES"<<endl;
         rlutil::locate(50, 10);
-        cout<<"1. AGREGAR PROFESIONAL"<<endl;
+        cout<<"1. DAR DE ALTA PROFESIONAL"<<endl;
         rlutil::locate(50, 12);
         cout<<"2. LISTAR PROFESIONALES"<<endl;
         rlutil::locate(50, 14);
@@ -31,10 +32,12 @@ void menuProfesional(){
         rlutil::locate(50, 16);
         cout<<"4. DAR DE BAJA PROFESIONAL"<<endl;
         rlutil::locate(50, 18);
-        cout<<"0. VOLVER MENU PRINCIPAL"<<endl;
+        cout<<"5. MODIFICAR PROFESIONAL"<<endl;
         rlutil::locate(50, 20);
+        cout<<"0. VOLVER MENU PRINCIPAL"<<endl;
+        rlutil::locate(50, 22);
         cout<<"INGRESE OPCION: "<<endl;
-        rlutil::locate(66, 20);
+        rlutil::locate(66, 22);
         cin>>num;
         system("cls");
         switch(num){
@@ -42,9 +45,11 @@ void menuProfesional(){
                 break;
             case 2: listarProfesional();
                 break;
-            case 3: darBajaProfesional();
+            case 3: buscarProfesional();
                 break;
-            case 4: buscarProfesional();
+            case 4: darBajaProfesional();
+                break;
+            case 5: modificarProfesional();
                 break;
             case 0:
                 return;
@@ -154,6 +159,129 @@ void buscarProfesional(){
         }
     }
     delete[] obj;
+}
+
+void modificarProfesional(){
+    Profesional *obj;
+    ArchivoProfesional arc;
+
+    int cant = arc.contarRegistros();
+    obj = new Profesional [cant];
+
+    cargarMemoriaDinamicaProfesional(obj, cant);
+
+    int opc;
+    int matricula;
+    int especialidad, numTelefono;
+    char direccion[100], email[50];
+    Fecha f;
+    bool band=false;
+
+    cout<<"INGRESE DNI: ";
+    cin>>matricula;
+
+    for(int i=0;i<cant;i++){
+        if(matricula == obj[i].getMatricula() && obj[i].getEstado()){
+            while(band==false){
+                system("cls");
+                interfaz();
+                rlutil::locate(57, 7);
+                cout<<"QUE QUIERE MODIFICAR?"<<endl;
+                rlutil::locate(57, 10);
+                cout<<"1. FECHA DE INGRESO"<<endl;
+                rlutil::locate(57, 12);
+                cout<<"2. OBRA ESPECIALIDAD"<<endl;
+                rlutil::locate(57, 14);
+                cout<<"3. DIRECCION"<<endl;
+                rlutil::locate(57, 16);
+                cout<<"4. NUMERO DE TELEFONO"<<endl;
+                rlutil::locate(57, 18);
+                cout<<"5. EMAIL"<<endl;
+                rlutil::locate(57, 20);
+                cout<<"0. CANCELAR CAMBIO"<<endl;
+                rlutil::locate(57, 22);
+                cout<<"INGRESE UNA OPCION: ";
+                rlutil::locate(77, 22);
+                cin>>opc;
+                system("cls");
+                interfazLogin();
+                switch(opc){
+                    case 1:
+                        rlutil::locate(49, 11);
+                        cout<<"FECHA DE INGRESO: ";
+                        f.CargarConInterfaz();
+                        obj[i].setFecha(f);
+                        band=true;
+                        break;
+                    case 2:
+                        rlutil::locate(48, 13);
+                        cout<<"ESPECIALIDAD: ";
+                        rlutil::locate(61, 13);
+                        cin>>especialidad;
+                            if(especialidad<1 || especialidad>4){
+                                while(true){
+                                rlutil::locate(48, 13);
+                                cout<<"INGRESE NUEVAMENTE LA ESPECIALIDAD: "<<endl;
+                                rlutil::locate(50, 14);
+                                cin>>especialidad;
+                                if(especialidad>0 && especialidad <5){
+                                    break;
+                                }
+                            }
+                        }
+                        obj[i].setEspecialidad(especialidad);
+                        band=true;
+                        break;
+                    case 3:
+                        rlutil::locate(48, 13);
+                        cout<<"DIRECCION: ";
+                        rlutil::locate(59, 13);
+                        cargarCadena(direccion, 100);
+                        obj[i].setDireccion(direccion);
+                        band=true;
+                        break;
+                    case 4:
+                        rlutil::locate(48, 13);
+                        cout<<"NUMERO DE TELEFONO: ";
+                        rlutil::locate(68, 13);
+                        cin>>numTelefono;
+                        obj[i].setTelefono(numTelefono);
+                        band=true;
+                        break;
+                    case 5:
+                        rlutil::locate(48, 13);
+                        cout<<"EMAIL: ";
+                        rlutil::locate(55, 13);
+                        cargarCadena(email, 50);
+                        obj[i].setEmail(email);
+                        band=true;
+                        break;
+                    case 0:
+                        system("cls");
+                        delete[] obj;
+                        return;
+                        break;
+                    default:
+                        rlutil::locate(48, 13);
+                        cout<<"ERROR DE OPCION"<<endl;
+                        break;
+                }
+                system("pause");
+            }
+            arc.modificarRegistro(obj[i], i);
+            interfazLogin();
+            rlutil::locate(48, 13);
+            cout<<"MODIFICADO CON EXITO"<<endl;
+            delete[] obj;
+            return;
+        }
+    }
+    system("cls");
+    interfazLogin();
+    rlutil::locate(50, 13);
+    cout<<"NO SE ENCONTRO LA MATRICULA"<<endl;
+    delete[] obj;
+    return;
 }
 
 #endif // MENUPROFESIONAL_H_INCLUDED
