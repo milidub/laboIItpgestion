@@ -5,6 +5,7 @@ void agregarPaciente();
 void darAltaPaciente();
 void listarPaciente();
 void buscarPaciente();
+void modificarPaciente();
 
 Paciente cargarMemoriaDinamicaPaciente(Paciente *obj, int tam){
     ArchivoPaciente arc;
@@ -23,18 +24,20 @@ void menuPaciente(){
         rlutil::locate(53, 7);
         cout<<"MENU PACIENTES"<<endl;
         rlutil::locate(50, 10);
-        cout<<"1. AGREGAR PACIENTE"<<endl;
+        cout<<"1. DAR DE ALTA PACIENTE"<<endl;
         rlutil::locate(50, 12);
         cout<<"2. LISTAR PACIENTE"<<endl;
         rlutil::locate(50, 14);
         cout<<"3. BUSCAR PACIENTE"<<endl;
         rlutil::locate(50, 16);
-        cout<<"4. DAR DE ALTA PACIENTE"<<endl;
+        cout<<"4. DAR DE BAJA PACIENTE"<<endl;
         rlutil::locate(50, 18);
-        cout<<"0. VOLVER MENU PRINCIPAL"<<endl;
+        cout<<"5. MODIFICAR PACIENTE"<<endl;
         rlutil::locate(50, 20);
+        cout<<"0. VOLVER MENU PRINCIPAL"<<endl;
+        rlutil::locate(50, 22);
         cout<<"INGRESE OPCION: "<<endl;
-        rlutil::locate(66, 20);
+        rlutil::locate(66, 22);
         cin>>num;
         system("cls");
         switch(num){
@@ -42,9 +45,11 @@ void menuPaciente(){
                 break;
             case 2: listarPaciente();
                 break;
-            case 3: darAltaPaciente();
+            case 3: buscarPaciente();
                 break;
-            case 4: buscarPaciente();
+            case 4: darAltaPaciente();
+                break;
+            case 5: modificarPaciente();
                 break;
             case 0:
                 return;
@@ -145,7 +150,7 @@ void buscarPaciente(){
     cargarMemoriaDinamicaPaciente(obj, cant);
 
     int dni;
-    cout<<"DNI: ";
+    cout<<"INGRESE DNI: ";
     cin>>dni;
 
     for(int i=0;i<cant;i++){
@@ -157,6 +162,121 @@ void buscarPaciente(){
         }
     }
     delete[] obj;
+}
+
+void modificarPaciente(){
+    Paciente *obj;
+    ArchivoPaciente arc;
+
+    int cant = arc.contarRegistros();
+    obj = new Paciente [cant];
+
+    cargarMemoriaDinamicaPaciente(obj, cant);
+
+    int opc;
+    int dni;
+    int obraSocial, numTelefono;
+    char direccion[100], email[50];
+    Fecha f;
+    bool band=false;
+
+    interfazLogin();
+    rlutil::locate(49, 13);
+    cout<<"INGRESE DNI: ";
+    rlutil::locate(62, 13);
+    cin>>dni;
+
+    for(int i=0;i<cant;i++){
+        if(dni == obj[i].getDni() && obj[i].getEstado()){
+            while(band==false){
+                system("cls");
+                interfaz();
+                rlutil::locate(57, 7);
+                cout<<"QUE QUIERE MODIFICAR?"<<endl;
+                rlutil::locate(57, 10);
+                cout<<"1. FECHA DE NACIMIENTO"<<endl;
+                rlutil::locate(57, 12);
+                cout<<"2. OBRA SOCIAL"<<endl;
+                rlutil::locate(57, 14);
+                cout<<"3. DIRECCION"<<endl;
+                rlutil::locate(57, 16);
+                cout<<"4. NUMERO DE TELEFONO"<<endl;
+                rlutil::locate(57, 18);
+                cout<<"5. EMAIL"<<endl;
+                rlutil::locate(57, 20);
+                cout<<"0. CANCELAR CAMBIO"<<endl;
+                rlutil::locate(57, 22);
+                cout<<"INGRESE UNA OPCION: ";
+                rlutil::locate(77, 22);
+                cin>>opc;
+                system("cls");
+                interfazLogin();
+                switch(opc){
+                    case 1:
+                        rlutil::locate(49, 11);
+                        cout<<"FECHA DE NACIMIENTO: ";
+                        f.CargarConInterfaz();
+                        obj[i].setFecha(f);
+                        band=true;
+                        break;
+                    case 2:
+                        rlutil::locate(49, 13);
+                        cout<<"OBRA SOCIAL: ";
+                        rlutil::locate(61, 13);
+                        cin>>obraSocial;
+                        obj[i].setObraSocial(obraSocial);
+                        band=true;
+                        break;
+                    case 3:
+                        rlutil::locate(49, 13);
+                        cout<<"DIRECCION: ";
+                        rlutil::locate(49, 14);
+                        cargarCadena(direccion, 100);
+                        obj[i].setDireccion(direccion);
+                        band=true;
+                        break;
+                    case 4:
+                        rlutil::locate(49, 13);
+                        cout<<"NUMERO DE TELEFONO: ";
+                        rlutil::locate(49, 14);
+                        cin>>numTelefono;
+                        obj[i].setTelefono(numTelefono);
+                        band=true;
+                        break;
+                    case 5:
+                        rlutil::locate(49, 13);
+                        cout<<"EMAIL: ";
+                        rlutil::locate(56, 13);
+                        cargarCadena(email, 50);
+                        obj[i].setEmail(email);
+                        band=true;
+                        break;
+                    case 0:
+                        system("cls");
+                        return;
+                        break;
+                    default:
+                        interfazLogin();
+                        rlutil::locate(49, 13);
+                        cout<<"ERROR DE OPCION"<<endl;
+                        system("pause");
+                        break;
+                }
+            }
+            arc.modificarRegistro(obj[i], i);
+            interfazLogin();
+            rlutil::locate(49, 13);
+            cout<<"MODIFICADO CON EXITO"<<endl;
+            delete[] obj;
+            return;
+        }
+    }
+    system("cls");
+    interfazLogin();
+    rlutil::locate(50, 13);
+    cout<<"NO SE ENCONTRO EL DNI"<<endl;
+    delete[] obj;
+    return;
 }
 
 #endif // MENUPACIENTE_H_INCLUDED
