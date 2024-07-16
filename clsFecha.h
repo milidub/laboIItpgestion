@@ -2,42 +2,42 @@
 #define CLSFECHA_H_INCLUDED
 
 class FechaActual{
-private:
-    int dia, mes, anio;
-    int minuto, hora;
-public:
-    FechaActual(){
-        time_t t = time(0);
-        tm* now = localtime(&t);
+     private:
+        int dia, mes, anio;
+        int minuto, hora;
+    public:
+        FechaActual(){
+            time_t hoy = time(0);
+            tm *time = localtime(&hoy);
+            dia = time->tm_mday;
+            mes = time->tm_mon+1;
+            anio = time->tm_year+1900;
 
-        dia=now->tm_mday;
-        mes=now->tm_mon + 1;
-        anio=now->tm_year + 1900;
-        hora=now->tm_hour;
-        minuto=now->tm_min;
-    }
-    void MostrarFecha(){
-        cout<<dia<<"/"<<mes<<"/"<<anio<<endl;
-    }
-    void MostrarHora(){
-        cout<<hora<<" : "<<minuto<<endl;
-    }
-Fecha getFechaActual();
+            minuto = time->tm_min;
+            hora = time->tm_hour;
+        }
+        void Mostrar(){
+            cout<<dia<<"/"<<mes<<"/"<<anio<<endl;
+        }
+        void MostrarHora(){
+            cout<<hora<<":"<<minuto<<endl;
+        }
+        int getDia(){return dia;}
+        int getMes(){return mes;}
+        int getAnio(){return anio;}
+        ~FechaActual(){}
 };
 
 class Fecha{
-private:
-    int dia, mes, anio;
-    int minuto, hora;
-public:
-    Fecha(){
-        dia=1;
-        mes=1;
-        anio=1900;
-    }
-
-    ///SE UTILIZA ESTA FUNCION PARA CARGAR LAS FECHAS DE LA CLASE PACIENTE Y PROFESIONAL
-    void Cargar(){
+    private:
+        int dia, mes, anio;
+    public:
+        Fecha(){
+            dia=1;
+            mes=1;
+            anio=1976;
+        }
+        void Cargar(){
             FechaActual fa;
             while(true){
                 bool bandera = true;
@@ -66,30 +66,46 @@ public:
                 else{}
             }
         }
-    ///SE UTILIZA ESTA FUNCION PARA CARGAR TURNOS
-    void CargarFechaYHora(){
-        cout<<"DIA: ";
-        cin>>dia;
-        cout<<"MES: ";
-        cin>>mes;
-        cout<<"ANIO: ";
-        cin>>anio;
-        cout<<"HORA: ";
-        cin>>hora;
-        cout<<"MINUTO: ";
-        cin>>minuto;
-    }
-    void Mostrar(){
-        cout<<dia<<"/"<<mes<<"/"<<anio<<endl;
-    }
-    void MostrarHoraYMinuto(){
-        cout<<hora<<" : "<<minuto<<endl;
-    }
-    void setDia(int d); // <--- Agregué esta línea
-    void setMes(int m); // <--- Agregué esta línea
-    void setAnio(int a); // <--- Agregué esta línea
-    void setHora(int h); // <--- Agregué esta línea
-    void setMinuto(int m);
+        void Mostrar(){
+            cout<<dia<<"/"<<mes<<"/"<<anio<<endl;
+        }
+        void CargarConInterfaz(){
+            FechaActual fa;
+            while(true){
+                bool bandera = true;
+                rlutil::locate(49, 13);
+                cout<<"DIA:         ";
+                rlutil::locate(54, 13);
+                cin>>dia;
+                if(dia<1 || dia>31){
+                    rlutil::locate(49, 13);
+                    cout<<"ERROR DIA"<<endl;
+                    bandera = false;
+                }
+                rlutil::locate(49, 14);
+                cout<<"MES:         ";
+                rlutil::locate(54, 14);
+                cin>>mes;
+                if((mes<1 || mes>12)){
+                    rlutil::locate(49, 14);
+                    cout<<"ERROR MES"<<endl;
+                    bandera = false;
+                }
+                rlutil::locate(49, 15);
+                cout<<"ANIO:        ";
+                rlutil::locate(55, 15);
+                cin>>anio;
+                if(anio<1976 || anio > fa.getAnio()){
+                    rlutil::locate(49, 15);
+                    cout<<"ERROR ANIO"<<endl;
+                    bandera = false;
+                }
+
+                if(bandera==true){
+                    break;
+                }
+            }
+        }
 };
 
 #endif // CLSFECHA_H_INCLUDED
