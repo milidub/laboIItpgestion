@@ -7,17 +7,23 @@ void TurnosPorDniPaciente(){
     ArchivoTurno arcTur;
 
     int dni;
+    bool band = false;
     int cant=arcTur.contarRegistros();
-    cout<<"INGRESE DNI DEL PACIENTE"<<endl;
+    rlutil::setColor(rlutil::CYAN);
+    cout<<"INGRESE DNI DEL PACIENTE: ";
+    rlutil::setColor(rlutil::WHITE);
     cin>>dni;
+    system("cls");
 
     for(int i=0;i<cant;i++){
         turno = arcTur.leerRegistro(i);
         if(dni == turno.getDniPaciente()){
             turno.Mostrar();
+            band = true;
             cout<<endl;
         }
     }
+    if(band==false){cout<<"NO HAY TURNOS ASIGNADOS DEL PACIENTE"<<endl;}
 }
 
 void CantidadPacientesYProfesionales(){
@@ -55,7 +61,7 @@ void CantidadPacientesYProfesionales(){
         cout<<"APELLIDO: "<<apellido<<endl;
         cout<<"ESTADO: ";
         if(estado){cout<<"ACTIVO"<<endl; cantidadPacientesActivos++;}
-        else{cout<<"INNACTIVO"<<endl;}
+        else{cout<<"DADO DE BAJA"<<endl;}
 
         cout<<endl;
     }
@@ -67,7 +73,7 @@ void CantidadPacientesYProfesionales(){
 
     for(int i=0;i<cant2;i++){
         obj2 = arc2.leerRegistro(i);
-        dni = obj2.getMatricula();
+        matricula = obj2.getMatricula();
         strcpy(nombre, obj2.getNombre());
         strcpy(apellido, obj2.getApellido());
         estado = obj2.getEstado();
@@ -77,7 +83,7 @@ void CantidadPacientesYProfesionales(){
         cout<<"APELLIDO: "<<apellido<<endl;
         cout<<"ESTADO: ";
         if(estado){cout<<"ACTIVO"<<endl; cantidadProfesionalesActivos++;}
-        else{cout<<"INNACTIVO"<<endl;}
+        else{cout<<"DADO DE BAJA"<<endl;}
 
         cout<<endl;
     }
