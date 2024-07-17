@@ -174,9 +174,9 @@ void modificarPaciente(){
     cargarMemoriaDinamicaPaciente(obj, cant);
 
     int opc;
-    int dni;
-    int obraSocial, numTelefono;
-    char direccion[100], email[50];
+    int dni, obraSocial;
+    char numTelefono[20];
+    char direccion[100], email[50], nombre[50], apellido[50];
     Fecha f;
     bool band=false;
 
@@ -192,17 +192,19 @@ void modificarPaciente(){
                 system("cls");
                 interfaz();
                 rlutil::locate(57, 7);
-                cout<<"QUE QUIERE MODIFICAR?"<<endl;
+                cout<<"QUE DESEA MODIFICAR?"<<endl;
                 rlutil::locate(57, 10);
-                cout<<"1. FECHA DE NACIMIENTO"<<endl;
+                cout<<"1. NOMBRE Y APELLIDO"<<endl;
+                rlutil::locate(57, 11);
+                cout<<"2. FECHA DE NACIMIENTO"<<endl;
                 rlutil::locate(57, 12);
-                cout<<"2. OBRA SOCIAL"<<endl;
+                cout<<"3. OBRA SOCIAL"<<endl;
+                rlutil::locate(57, 13);
+                cout<<"4. DIRECCION"<<endl;
                 rlutil::locate(57, 14);
-                cout<<"3. DIRECCION"<<endl;
-                rlutil::locate(57, 16);
-                cout<<"4. NUMERO DE TELEFONO"<<endl;
-                rlutil::locate(57, 18);
-                cout<<"5. EMAIL"<<endl;
+                cout<<"5. NUMERO DE TELEFONO"<<endl;
+                rlutil::locate(57, 15);
+                cout<<"6. EMAIL"<<endl;
                 rlutil::locate(57, 20);
                 cout<<"0. CANCELAR CAMBIO"<<endl;
                 rlutil::locate(57, 22);
@@ -213,13 +215,26 @@ void modificarPaciente(){
                 interfazLogin();
                 switch(opc){
                     case 1:
+                        rlutil::locate(51, 12);
+                        cout<<"NOMBRE: ";
+                        rlutil::locate(59, 12);
+                        cargarCadena(nombre, 50);
+                        obj[i].setNombre(nombre);
+                        rlutil::locate(51, 14);
+                        cout<<"APELLIDO: ";
+                        rlutil::locate(61, 14);
+                        cargarCadena(apellido, 50);
+                        obj[i].setApellido(apellido);
+                        band=true;
+                        break;
+                    case 2:
                         rlutil::locate(49, 11);
                         cout<<"FECHA DE NACIMIENTO: ";
                         f.CargarConInterfaz();
                         obj[i].setFecha(f);
                         band=true;
                         break;
-                    case 2:
+                    case 3:
                         rlutil::locate(49, 13);
                         cout<<"OBRA SOCIAL: ";
                         rlutil::locate(61, 13);
@@ -227,7 +242,7 @@ void modificarPaciente(){
                         obj[i].setObraSocial(obraSocial);
                         band=true;
                         break;
-                    case 3:
+                    case 4:
                         rlutil::locate(49, 13);
                         cout<<"DIRECCION: ";
                         rlutil::locate(49, 14);
@@ -235,15 +250,15 @@ void modificarPaciente(){
                         obj[i].setDireccion(direccion);
                         band=true;
                         break;
-                    case 4:
+                    case 5:
                         rlutil::locate(49, 13);
                         cout<<"NUMERO DE TELEFONO: ";
                         rlutil::locate(49, 14);
-                        cin>>numTelefono;
+                        cargarCadena(numTelefono, 20);
                         obj[i].setTelefono(numTelefono);
                         band=true;
                         break;
-                    case 5:
+                    case 6:
                         rlutil::locate(49, 13);
                         cout<<"EMAIL: ";
                         rlutil::locate(56, 13);
