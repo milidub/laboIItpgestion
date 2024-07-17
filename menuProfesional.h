@@ -107,7 +107,7 @@ void darBajaProfesional(){
     for(int i=0;i<cant;i++){
         if(matricula == obj[i].getMatricula() && obj[i].getEstado()){
             obj[i].setEstado(false);
-            arc.grabarRegistro(obj[i]);
+            arc.modificarRegistro(obj[i]);
             cout<<"GRABADO CON EXITO"<<endl;
             delete[] obj;
             return;
