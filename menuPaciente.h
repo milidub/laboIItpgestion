@@ -2,7 +2,7 @@
 #define MENUPACIENTE_H_INCLUDED
 
 void agregarPaciente();
-void darAltaPaciente();
+void darBajaPaciente();
 void listarPaciente();
 void buscarPaciente();
 void modificarPaciente();
@@ -47,7 +47,7 @@ void menuPaciente(){
                 break;
             case 3: buscarPaciente();
                 break;
-            case 4: darAltaPaciente();
+            case 4: darBajaPaciente();
                 break;
             case 5: modificarPaciente();
                 break;
@@ -93,14 +93,14 @@ void agregarPaciente(){
     }
 }
 
-void darAltaPaciente(){
+void darBajaPaciente(){
     Paciente *obj;
     ArchivoPaciente arc;
 
     int cant = arc.contarRegistros();
-    obj = new Paciente[cant];
-    if(obj==nullptr)exit(-1);
 
+    obj = new Paciente [cant];
+    if(obj==nullptr){exit(-1);}
     cargarMemoriaDinamicaPaciente(obj, cant);
 
     int dni;
@@ -110,8 +110,8 @@ void darAltaPaciente(){
     for(int i=0;i<cant;i++){
         if(dni == obj[i].getDni() && obj[i].getEstado()){
             obj[i].setEstado(false);
-            arc.grabarRegistro(obj[i]);
-            cout<<"GRABADO CON EXITO"<<endl;
+            arc.modificarRegistro(obj[i], i);
+            cout<<"DADO DE BAJA CON EXITO"<<endl;
             delete[] obj;
             return;
         }
