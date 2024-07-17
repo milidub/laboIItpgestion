@@ -193,7 +193,7 @@ void modificarProfesional(){
                 rlutil::locate(57, 11);
                 cout<<"1. FECHA DE INGRESO"<<endl;
                 rlutil::locate(57, 12);
-                cout<<"2. OBRA ESPECIALIDAD"<<endl;
+                cout<<"2. ESPECIALIDAD"<<endl;
                 rlutil::locate(57, 13);
                 cout<<"3. DIRECCION"<<endl;
                 rlutil::locate(57, 14);
