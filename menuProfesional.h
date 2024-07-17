@@ -107,7 +107,7 @@ void darBajaProfesional(){
     for(int i=0;i<cant;i++){
         if(matricula == obj[i].getMatricula() && obj[i].getEstado()){
             obj[i].setEstado(false);
-            arc.modificarRegistro(obj[i]);
+            arc.modificarRegistro(obj[i], i);
             cout<<"GRABADO CON EXITO"<<endl;
             delete[] obj;
             return;
@@ -172,8 +172,9 @@ void modificarProfesional(){
 
     int opc;
     int matricula;
-    int especialidad, numTelefono;
-    char direccion[100], email[50];
+    int especialidad;
+    char numTelefono[20];
+    char direccion[100], email[50], nombre[50], apellido[50];
     Fecha f;
     bool band=false;
 
@@ -189,13 +190,15 @@ void modificarProfesional(){
                 cout<<"QUE QUIERE MODIFICAR?"<<endl;
                 rlutil::locate(57, 10);
                 cout<<"1. FECHA DE INGRESO"<<endl;
+                rlutil::locate(57, 11);
+                cout<<"1. FECHA DE INGRESO"<<endl;
                 rlutil::locate(57, 12);
                 cout<<"2. OBRA ESPECIALIDAD"<<endl;
-                rlutil::locate(57, 14);
+                rlutil::locate(57, 13);
                 cout<<"3. DIRECCION"<<endl;
-                rlutil::locate(57, 16);
+                rlutil::locate(57, 14);
                 cout<<"4. NUMERO DE TELEFONO"<<endl;
-                rlutil::locate(57, 18);
+                rlutil::locate(57, 15);
                 cout<<"5. EMAIL"<<endl;
                 rlutil::locate(57, 20);
                 cout<<"0. CANCELAR CAMBIO"<<endl;
@@ -207,13 +210,26 @@ void modificarProfesional(){
                 interfazLogin();
                 switch(opc){
                     case 1:
+                        rlutil::locate(51, 12);
+                        cout<<"NOMBRE: ";
+                        rlutil::locate(59, 12);
+                        cargarCadena(nombre, 50);
+                        obj[i].setNombre(nombre);
+                        rlutil::locate(51, 14);
+                        cout<<"APELLIDO: ";
+                        rlutil::locate(61, 14);
+                        cargarCadena(apellido, 50);
+                        obj[i].setApellido(apellido);
+                        band=true;
+                        break;
+                    case 2:
                         rlutil::locate(49, 11);
                         cout<<"FECHA DE INGRESO: ";
                         f.CargarConInterfaz();
                         obj[i].setFecha(f);
                         band=true;
                         break;
-                    case 2:
+                    case 3:
                         rlutil::locate(48, 13);
                         cout<<"ESPECIALIDAD: ";
                         rlutil::locate(61, 13);
@@ -232,7 +248,7 @@ void modificarProfesional(){
                         obj[i].setEspecialidad(especialidad);
                         band=true;
                         break;
-                    case 3:
+                    case 4:
                         rlutil::locate(48, 13);
                         cout<<"DIRECCION: ";
                         rlutil::locate(59, 13);
@@ -240,15 +256,15 @@ void modificarProfesional(){
                         obj[i].setDireccion(direccion);
                         band=true;
                         break;
-                    case 4:
+                    case 5:
                         rlutil::locate(48, 13);
                         cout<<"NUMERO DE TELEFONO: ";
                         rlutil::locate(68, 13);
-                        cin>>numTelefono;
+                        cargarCadena(numTelefono, 20);
                         obj[i].setTelefono(numTelefono);
                         band=true;
                         break;
-                    case 5:
+                    case 6:
                         rlutil::locate(48, 13);
                         cout<<"EMAIL: ";
                         rlutil::locate(55, 13);
